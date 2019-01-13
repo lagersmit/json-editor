@@ -2,3 +2,5 @@
 /.idea/
 /dist/
 /tests/codeceptjs/output
+package.json
+package-lock.json
