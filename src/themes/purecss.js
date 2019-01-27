@@ -104,12 +104,64 @@ JSONEditor.defaults.themes.purecss = JSONEditor.AbstractTheme.extend({
   getButtonHolder: function() {
     var el = document.createElement('div');
     el.className = 'button-group';
+    el.style.display = "";
+
+
+
     return el;
   },
   getButton: function(text, icon, title) {
     var el = this._super(text, icon, title);
     el.className += ' pure-button-primary pure-button';
-    el.style.fontSize = '0.8em';
+    el.style.fontSize = '0.75em';
+
+    el.onclick = function () {
+      var open_options = document.querySelectorAll(".options_open");
+      for (var i=0; i<open_options.length; i++) {
+        open_options[i].classList.remove("options_open");
+      }
+    };
+    return el;
+  },
+  getHeader: function(text) {
+    var el = document.createElement('h3');
+    if(typeof text === "string") {
+      el.textContent = text;
+    }
+    else {
+      el.appendChild(text);
+    }
+
+    el.classList.add("title_header");
+    el.onclick = function() {
+      if (el.classList.contains("options_open")) {
+        el.classList.remove("options_open");
+
+      } else {
+        var open_options = document.querySelectorAll(".options_open");
+        for (var i=0; i<open_options.length; i++) {
+          open_options[i].classList.remove("options_open");
+        }
+        el.classList.add("options_open");
+      }
+    };
+    var menubutton = document.createElement("div");
+    menubutton.style.display = 'inline-block';
+    menubutton.style.verticalAlign = 'middle';
+    menubutton.style.marginLeft = "10px";
+    for (var i=0; i<3; i++) {
+      var line = document.createElement("div");
+      line.style.height = "2px";
+      line.style.width = "25px";
+      line.style.backgroundColor = "grey";
+      if (i<3) {
+        line.style.margin = "6px 0px";
+      }
+      menubutton.appendChild(line);
+    }
+
+    el.appendChild(menubutton);
+
     return el;
   },
   addInputError: function(input,text) {
