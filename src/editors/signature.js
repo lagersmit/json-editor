@@ -33,7 +33,9 @@ JSONEditor.defaults.editors.signature = JSONEditor.defaults.editors.string.exten
 
           // check if the signature is not empty before setting a value
           if (!self.signaturePad.isEmpty()) {
-            self.input.value = self.signaturePad.toDataURL();
+            // self.input.value = self.signaturePad.toDataURL();
+            self.input.value = JSON.stringify(self.signaturePad.toData());
+            console.log(JSON.stringify(self.signaturePad.toData()));
           } else {
             self.input.value = '';
           }
@@ -105,7 +107,10 @@ JSONEditor.defaults.editors.signature = JSONEditor.defaults.editors.string.exten
       self.signaturePad.clear();
       // only set contents if value != ''
       if (val && val != '') {
-        self.signaturePad.fromDataURL(val);
+        // self.signaturePad.fromDataURL(val);
+        self.signaturePad.fromData(JSON.parse(val));
+          console.log('loading signature');
+        console.log(JSON.parse(val));
       }
       self.watch_listener();
       self.jsoneditor.notifyWatchers(self.path);
